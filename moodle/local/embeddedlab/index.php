@@ -13,7 +13,7 @@ echo $OUTPUT->header();
 $origin = 'https://waselghanem33.github.io';
 $src = $origin . '/embeddedlab/course.html?moodle_origin=' . rawurlencode((string)$CFG->wwwroot);
 echo html_writer::tag('p', 'Complete your laboratory work below, then click Submit to Moodle. Your Moodle identity is supplied by the authenticated course page.');
-echo html_writer::empty_tag('iframe', [
+echo html_writer::tag('iframe', '', [
     'id' => 'embeddedlab-frame',
     'src' => $src,
     'title' => 'EmbeddedLab engineering course',
@@ -27,7 +27,7 @@ $config = [
     'sesskey' => sesskey(),
     'courseid' => $courseid
 ];
-echo html_writer::tag('p', '', ['id' => 'embeddedlab-status', 'role' => 'status']);
+echo html_writer::tag('p', '', ['id' => 'embeddedlab-status', 'role' => 'status']);\necho html_writer::link(new moodle_url('/local/embeddedlab/review.php', ['courseid' => $courseid]), 'Instructor submissions');
 echo html_writer::script('const EMBEDDEDLAB_BRIDGE = ' . json_encode($config, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) . ';
 window.addEventListener("message", async function(event) {
   if (event.origin !== EMBEDDEDLAB_BRIDGE.origin) return;
