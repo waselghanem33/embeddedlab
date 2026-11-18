@@ -35,3 +35,9 @@ Open [the interactive laboratory](./lab.html) for idealized UART framing, I²C t
 Open [Virtual Workbench](./workbench.html) for Arduino Uno / generic ESP32 logical pin mapping, UART/I²C/SPI signal visualization, fault injection, sample cursor, CSV export, diagnostic assessment, and local JSON lab reports.
 
 **Simulation limits:** Simplified digital signal model only. The pin checker uses suggested board mappings (not a complete hardware pin-multiplexer model), SPI uses mode 0, UART uses 8N1, and I²C uses a fixed 0x48 address. No physical voltage/current simulation, compiler, live microcontroller, instructor server or real waveform capture. Check exact board datasheets before connecting hardware.
+
+## Version 0.4 — Visual Circuit Builder
+
+Open [Circuit Builder](./circuit.html). It includes an SVG workspace, pointer-based drag or click-to-connect wiring, Arduino Uno and generic ESP32 logical pin templates, LED/button/UART/I²C/SPI exercises, missing/incorrect/duplicate-terminal wire checks, diagnostics, example solutions, and browser-local/JSON save and restore.
+
+**Scope:** This is a logical connection checker using one suggested mapping per board and experiment. It does **not** simulate physical breadboard continuity, analog current, resistors, pull-up behavior, electrical shorts, signal timing, firmware, or real hardware. A duplicate-terminal wire is flagged as a simplified conflict, not a physically proven short. ESP32 pin assignments depend on board and firmware configuration.
