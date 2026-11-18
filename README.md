@@ -26,3 +26,6 @@ The GPIO/LED demonstration is a JavaScript conceptual model, not a hardware-accu
 - Moodle integration
 
 Version 0.1.
+
+## Engineering Workbench (v0.2)
+Open [the interactive laboratory](./lab.html) for idealized UART framing, I²C transactions, SPI mode and full-duplex timing, GPIO fault injection, and diagnostic challenges. This is a pedagogical signal model, not a firmware or electrical simulator.
