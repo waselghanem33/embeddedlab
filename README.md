@@ -53,3 +53,9 @@ Open [Breadboard Studio](./breadboard.html). Features: connected breadboard rail
 Open [Firmware Studio](./firmware.html) for Arduino Uno and ESP32 starter sketches (LED blink, button, UART, I²C scan, SPI transfer), an editable sketch, static educational checks, generated Wokwi-style diagram.json, external editor links, downloadable sketch/diagram/report files, and local session saving.
 
 **Integration boundaries:** The platform does not compile, execute, upload or validate firmware. Wokwi project files must be manually added to a matching external Wokwi project. Generated diagrams are starter templates and may need pin or component corrections in Wokwi, especially for SPI peripherals and board-specific variants. Static checks are substring checks, not compilation or functional tests. External Wokwi functionality and licensing are governed by Wokwi.
+
+## Version 0.7 — Engineering Course & Assessment
+
+Open [Course Studio](./course.html) for five scaffolded assignments (GPIO/LED, button, UART, I²C, SPI), formative conceptual quizzes, evidence and reflection fields, local progress saving, JSON student submission export, an instructor rubric (20 points per assignment), instructor-side JSON import, manual rubric scores and CSV overview export.
+
+**Privacy and assessment boundaries:** This is a static, browser-local workflow. Student files must be shared with instructors outside the platform. There are no accounts, authentication, server, Moodle/LTI integration, secure grading, plagiarism checks or automated evaluation of written work. Instructor imports and manual scores are session-only. The formative quiz answers and scores are stored in editable JSON and must not be used as tamper-proof assessment evidence. Instructor should review submitted work and simulator evidence independently.
