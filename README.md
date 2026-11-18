@@ -59,3 +59,9 @@ Open [Firmware Studio](./firmware.html) for Arduino Uno and ESP32 starter sketch
 Open [Course Studio](./course.html) for five scaffolded assignments (GPIO/LED, button, UART, I²C, SPI), formative conceptual quizzes, evidence and reflection fields, local progress saving, JSON student submission export, an instructor rubric (20 points per assignment), instructor-side JSON import, manual rubric scores and CSV overview export.
 
 **Privacy and assessment boundaries:** This is a static, browser-local workflow. Student files must be shared with instructors outside the platform. There are no accounts, authentication, server, Moodle/LTI integration, secure grading, plagiarism checks or automated evaluation of written work. Instructor imports and manual scores are session-only. The formative quiz answers and scores are stored in editable JSON and must not be used as tamper-proof assessment evidence. Instructor should review submitted work and simulator evidence independently.
+
+## Version 0.8 — Moodle Integration Pilot
+
+Course Studio now supports an explicit **Submit to Moodle** action when launched inside the authenticated Moodle bridge. The source of the Moodle local plugin is in [moodle/local/embeddedlab](./moodle/local/embeddedlab/README.md). The plugin uses a same-origin Moodle session and CSRF token to save student submissions in a Moodle database table, and provides a course-restricted instructor review page. No Moodle API token is stored on GitHub Pages.
+
+**Deployment required:** The plugin is source code only. A Moodle administrator must install and test it on the institutional Moodle server, add a course URL resource, and approve the iframe/CSP/privacy settings. The integration has not been deployed or end-to-end tested on a Moodle instance. It does not yet create Moodle Assignment submissions or gradebook scores.
