@@ -47,3 +47,9 @@ Open [Circuit Builder](./circuit.html). It includes an SVG workspace, pointer-ba
 Open [Breadboard Studio](./breadboard.html). Features: connected breadboard rails and five-hole strips, click-to-place jumpers/resistors/LEDs, ideal conductive-net detection, constrained single-series LED DC analysis using Ohm's law, fault warnings, Arduino/ESP32 reference sketches, external links to Wokwi's editors, and local/JSON design save and restore.
 
 **Important boundaries:** The analysis is valid only for an unambiguous series path containing exactly one resistor and one LED between the modeled positive rail and ground. Other networks are flagged as unsupported rather than numerically solved. GPIO is modeled as an ideal 5 V (Uno) or 3.3 V (ESP32) source; no real microcontroller drive constraints, SPICE engine, firmware execution, physical breadboard contact physics, or Wokwi data transfer are provided. Always check hardware documentation and current limits before physical implementation.
+
+## Version 0.6 — Firmware Studio
+
+Open [Firmware Studio](./firmware.html) for Arduino Uno and ESP32 starter sketches (LED blink, button, UART, I²C scan, SPI transfer), an editable sketch, static educational checks, generated Wokwi-style diagram.json, external editor links, downloadable sketch/diagram/report files, and local session saving.
+
+**Integration boundaries:** The platform does not compile, execute, upload or validate firmware. Wokwi project files must be manually added to a matching external Wokwi project. Generated diagrams are starter templates and may need pin or component corrections in Wokwi, especially for SPI peripherals and board-specific variants. Static checks are substring checks, not compilation or functional tests. External Wokwi functionality and licensing are governed by Wokwi.
