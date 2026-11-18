@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="local/embeddedlab/db" VERSION="2026111800" COMMENT="EmbeddedLab submission storage">
+<TABLES>
+<TABLE NAME="local_embeddedlab_sub" COMMENT="Student lab submissions">
+<FIELDS>
+<FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+<FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+<FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+<FIELD NAME="assignmentid" TYPE="char" LENGTH="32" NOTNULL="true"/>
+<FIELD NAME="payload" TYPE="text" NOTNULL="true"/>
+<FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+<FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+</FIELDS>
+<KEYS><KEY NAME="primary" TYPE="primary" FIELDS="id"/><KEY NAME="coursefk" TYPE="foreign" FIELDS="courseid" REFTABLE="course" REFFIELDS="id"/><KEY NAME="userfk" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/></KEYS>
+<INDEXES><INDEX NAME="courseuserassignment" UNIQUE="true" FIELDS="courseid, userid, assignmentid"/></INDEXES>
+</TABLE>
+</TABLES>
+</XMLDB>
