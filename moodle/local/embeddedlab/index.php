@@ -11,7 +11,7 @@ $PAGE->set_title('EmbeddedLab');
 $PAGE->set_heading(format_string($course->fullname));
 echo $OUTPUT->header();
 $origin = 'https://waselghanem33.github.io';
-$src = $origin . '/embeddedlab/course.html?moodle_origin=' . rawurlencode((string)$CFG->wwwroot);
+$moodleorigin = parse_url($CFG->wwwroot, PHP_URL_SCHEME) . '://' . parse_url($CFG->wwwroot, PHP_URL_HOST);\nif (parse_url($CFG->wwwroot, PHP_URL_PORT)) { $moodleorigin .= ':' . parse_url($CFG->wwwroot, PHP_URL_PORT); }\n$src = $origin . '/embeddedlab/course.html?moodle_origin=' . rawurlencode($moodleorigin);
 echo html_writer::tag('p', 'Complete your laboratory work below, then click Submit to Moodle. Your Moodle identity is supplied by the authenticated course page.');
 echo html_writer::tag('iframe', '', [
     'id' => 'embeddedlab-frame',
