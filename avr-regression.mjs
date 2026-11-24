@@ -7,3 +7,8 @@ function run(n){const end=cpu.cycles+n;let old=b.pinState(1)===PinState.High,ris
 run(100000);assert.equal(cpu.data[0x24],0x22);assert.equal(cpu.data[0x80],0x81);assert.equal(cpu.data[0x81],0x0b);assert.equal(cpu.data[0x88],64);
 const before=run(327680);assert.ok(Math.abs(before.hz-976.5625)<2);assert.ok(Math.abs(before.duty-.25)<.02);assert.ok(before.toggles>=19);
 d.setPin(2,false);run(100000);assert.equal(cpu.data[0x88],192);const after=run(327680);assert.ok(Math.abs(after.duty-.75)<.02);assert.ok(Math.abs(after.hz-976.5625)<2);d.setPin(2,true);run(10000);assert.equal(cpu.data[0x88],192);d.setPin(2,false);run(10000);assert.equal(cpu.data[0x88],64);console.log({before,after});
+
+// ADC peripheral conversion using AVR register writes and emulated clock.
+const {AVRADC,adcConfig}=await import('avr8js');
+const acpu=new CPU(new Uint16Array(16384));const adc=new AVRADC(acpu,adcConfig);
+for(const channel of [0,1,2,3,4,5])for(const voltage of [0,1.25,2.5,5]){adc.channelValues[channel]=voltage;acpu.writeData(0x7c,0x40|channel);acpu.writeData(0x7a,0xc7);const end=acpu.cycles+4000;while(acpu.cycles<end){avrInstruction(acpu);acpu.tick()}assert.equal(acpu.data[0x78]+256*acpu.data[0x79],Math.min(1023,Math.floor(voltage*1024/5)));}console.log('24 ADC conversions passed');
