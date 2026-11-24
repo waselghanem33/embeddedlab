@@ -41,5 +41,21 @@ try{
  await page.locator('#instruction').click();
  await page.locator('#serialClear').click();
  assert.equal(await page.locator('#serial').innerText(),'');
+ await page.goto('http://127.0.0.1:8000/index.html');
+ await page.locator('#nextTutorial').click();
+ await page.locator('#lab-analog').click();
+ assert.match(await page.locator('#launch').getAttribute('href'),/exercise=pwm/);
+ await page.locator('#complete').click();
+ assert.match(await page.locator('#saveStatus').innerText(),/Complete all/);
+ for(const id of ['prediction','observation','explanation','revision'])await page.locator('#'+id).fill('Measured and explained test evidence');
+ await page.locator('#answer').selectOption('0');await page.locator('#check').click();
+ assert.match(await page.locator('#feedback').innerText(),/Try again/);
+ await page.locator('#answer').selectOption('1');await page.locator('#check').click();await page.locator('#complete').click();
+ assert.match(await page.locator('#progressText').innerText(),/1 of 6/);
+ await page.reload();assert.match(await page.locator('#progressText').innerText(),/1 of 6/);
+ await page.locator('#student').fill('TEST-STUDENT');
+ const downloadPromise=page.waitForEvent('download');await page.locator('#download').click();const download=await downloadPromise;assert.equal(download.suggestedFilename(),'ENCE4380-student-evidence.json');
+ await page.goto('http://127.0.0.1:8000/avr-studio.html?exercise=pwm');
+ await page.waitForFunction(()=>document.querySelector('#compileStatus').textContent.includes('Loaded published compiled pwm'));
  assert.deepEqual(errors,[]);console.log('Browser smoke tests passed');
 }finally{await browser.close()}
