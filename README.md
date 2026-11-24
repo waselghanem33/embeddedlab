@@ -75,3 +75,6 @@ Open [studio.html](./studio.html). The shared deterministic model connects a six
 
 ## 1.2 graphical workspace
 The AVR studio now has an interactive SVG Uno and breadboard, colored netlist jumpers, navigation sidebar and editable downloadable Arduino C++ reference draft. The existing native HEX execution is unchanged; C++ compilation is external. Components remain fixed and only D9/D2/GND wiring is modeled. No drag-and-drop placement or general circuit solver. Existing modules are retained. JavaScript syntax checked; CI and Pages deployment must be verified separately.
+
+## 1.2.1
+Graphical Uno header sockets, continuous ideal power rails, movable component leads via selectors, and ideal potentiometer divider indication. D9 LED and D2 button remain the supported AVR-connected circuit; A0 voltage is not injected into ADC. Other headers are wiring-only, no general electrical solver or drag-and-drop. Browser regression adds lead relocation and rail-short tests.
