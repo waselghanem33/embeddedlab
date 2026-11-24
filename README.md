@@ -78,3 +78,6 @@ The AVR studio now has an interactive SVG Uno and breadboard, colored netlist ju
 
 ## 1.2.1
 Graphical Uno header sockets, continuous ideal power rails, movable component leads via selectors, and ideal potentiometer divider indication. D9 LED and D2 button remain the supported AVR-connected circuit; A0 voltage is not injected into ADC. Other headers are wiring-only, no general electrical solver or drag-and-drop. Browser regression adds lead relocation and rail-short tests.
+
+## 1.2.2
+AVRADC instantiated with six Uno analog channels connected to ideal rail or potentiometer nets. All twenty GPIO pins have ideal external input mapping and live pin state inspection. Floating inputs default low except D2 (legacy high); no general electrical solver, output contention model, or arbitrary output-driven net propagation. LED remains D9-specific. ADC register conversion regression added; check Actions for execution results.
