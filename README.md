@@ -81,3 +81,6 @@ Graphical Uno header sockets, continuous ideal power rails, movable component le
 
 ## 1.2.2
 AVRADC instantiated with six Uno analog channels connected to ideal rail or potentiometer nets. All twenty GPIO pins have ideal external input mapping and live pin state inspection. Floating inputs default low except D2 (legacy high); no general electrical solver, output contention model, or arbitrary output-driven net propagation. LED remains D9-specific. ADC register conversion regression added; check Actions for execution results.
+
+## 1.2.3
+Ideal DC nodal solver synchronizes GPIO output states, inputs and ADC channels at instruction boundaries when drive states change. Up to 12 additional resistors, LEDs and switches use terminal selectors. Internal pull-ups are 30kΩ; floating nodes use a tiny numerical leakage to ground. LEDs use 2V + 10Ω piecewise linear approximation. Conflicting ideal sources are flagged, not physically simulated; results on faulted nets are not reliable. No transient capacitance, thermal model, drag placement, or real-time guarantee. Original D9 summary remains a separate reference estimate. See network-test.mjs and Actions for validation.
