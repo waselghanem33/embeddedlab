@@ -12,6 +12,7 @@ jobs:
           node-version: '22'
       - run: npm install --no-save --ignore-scripts avr8js@0.21.1 esbuild@0.25.12 playwright@1.51.1
       - run: node avr-regression.mjs
+      - run: node network-test.mjs
       - run: node -e "require('./engine-v1.js');require('./tests-v1.js')"
       - run: mkdir -p vendor && npx --no-install esbuild node_modules/avr8js/dist/esm/index.js --bundle --format=esm --outfile=vendor/avr8js.mjs
       - run: npx --no-install playwright install --with-deps chromium
