@@ -15,5 +15,14 @@ try{
  assert.match(await page.locator('#regs').innerText(),/OCR1A = 192/);
  await page.locator('#release').click();await page.locator('#example').click();
  assert.match(await page.locator('#electrical').innerText(),/LED path connected/);
+ assert.equal(await page.locator('#board [aria-label="UNO-D13"]').count(),1);
+ await page.locator('#place-R1').selectOption('A10');
+ assert.match(await page.locator('#electrical').innerText(),/open\/unsupported/);
+ await page.locator('#example').click();
+ assert.match(await page.locator('#electrical').innerText(),/LED path connected/);
+ await page.locator('#board [aria-label="PLUS2"]').click();
+ await page.locator('#board [aria-label="MINUS2"]').click();
+ assert.match(await page.locator('#electrical').innerText(),/short/);
+ await page.locator('#example').click();
  assert.deepEqual(errors,[]);console.log('Browser smoke tests passed');
 }finally{await browser.close()}
