@@ -32,5 +32,14 @@ try{
  assert.equal(await page.locator('#extras > div').count(),3);
  await page.locator('#example').click();
  assert.equal(await page.locator('#extras > div').count(),0);
+ await page.locator('#exercise').selectOption('serial');
+ await page.locator('#exerciseLoad').click();
+ await page.waitForFunction(()=>document.querySelector('#compileStatus').textContent.includes('Loaded published compiled serial'));
+ await page.locator('#run').click();
+ await page.waitForFunction(()=>/\d+/.test(document.querySelector('#serial').textContent),{},{timeout:60000});
+ await page.locator('#pause').click();
+ await page.locator('#instruction').click();
+ await page.locator('#serialClear').click();
+ assert.equal(await page.locator('#serial').innerText(),'');
  assert.deepEqual(errors,[]);console.log('Browser smoke tests passed');
 }finally{await browser.close()}
