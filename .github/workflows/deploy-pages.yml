@@ -36,6 +36,20 @@ jobs:
           test -s _site/index.html
           test -s _site/avr-validation.html
           node --check _site/engine-v1.js
+      - uses: arduino/setup-arduino-cli@v2
+        with:
+          version: '1.2.2'
+      - name: Compile ENCE4380 sketches
+        run: |
+          arduino-cli core update-index
+          arduino-cli core install arduino:avr@1.8.6
+          mkdir -p _site/examples
+          for name in serial pwm interrupt; do
+            mkdir -p "_site/examples/$name"
+            cp "examples/$name/$name.ino" "_site/examples/$name/"
+            arduino-cli compile --fqbn arduino:avr:uno --output-dir "_site/examples/$name" "examples/$name"
+            test -s "_site/examples/$name/$name.ino.hex"
+          done
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
