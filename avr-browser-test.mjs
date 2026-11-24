@@ -24,5 +24,13 @@ try{
  await page.locator('#board [aria-label="MINUS2"]').click();
  assert.match(await page.locator('#electrical').innerText(),/short/);
  await page.locator('#example').click();
+ await page.locator('#pot').fill('75');
+ assert.match(await page.locator('#gpio').innerText(),/A0:.*3\.75 V/);
+ await page.locator('#addR').click();
+ await page.locator('#addL').click();
+ await page.locator('#addS').click();
+ assert.equal(await page.locator('#extras > div').count(),3);
+ await page.locator('#example').click();
+ assert.equal(await page.locator('#extras > div').count(),0);
  assert.deepEqual(errors,[]);console.log('Browser smoke tests passed');
 }finally{await browser.close()}
