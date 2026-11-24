@@ -1,0 +1,20 @@
+name: AVR validation
+on: [push, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-save --ignore-scripts avr8js@0.21.1 esbuild@0.25.12
+      - run: node avr-regression.mjs
+      - run: node -e "require('./engine-v1.js');require('./tests-v1.js')"
+      - run: mkdir -p vendor && npx --no-install esbuild node_modules/avr8js/dist/esm/index.js --bundle --format=esm --outfile=vendor/avr8js.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: avr8js-bundle
+          path: vendor/avr8js.mjs
