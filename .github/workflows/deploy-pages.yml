@@ -10,15 +10,12 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: pages-deployment
   cancel-in-progress: false
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-24.04
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -28,7 +25,7 @@ jobs:
         uses: actions/configure-pages@v5
         with:
           enablement: true
-      - name: Build local AVR8js module
+      - name: Build and verify local AVR8js module
         run: |
           npm install --no-save --ignore-scripts avr8js@0.21.1 esbuild@0.25.12
           mkdir -p _site/vendor
@@ -38,9 +35,20 @@ jobs:
           test -s _site/vendor/avr8js.mjs
           test -s _site/index.html
           test -s _site/avr-validation.html
+          node --check _site/engine-v1.js
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
-      - name: Deploy
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-24.04
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Wait for GitHub artifact metadata propagation
+        run: sleep 12
+      - name: Deploy website
         id: deployment
         uses: actions/deploy-pages@v4
