@@ -1,0 +1,3 @@
+import assert from 'node:assert/strict';import {solveNetwork} from './network.mjs';
+const cases=[{"edges":[["a","b"]],"drivers":[{"pin":"a","v":5}]},{"drivers":[{"pin":"a","v":5},{"pin":"b","v":0}],"resistors":[{"a":"a","b":"x","ohms":10000},{"a":"x","b":"b","ohms":10000}]},{"edges":[["a","b"]],"drivers":[{"pin":"a","v":5},{"pin":"b","v":0}]},{"drivers":[{"pin":"a","v":5},{"pin":"g","v":0}],"resistors":[{"a":"a","b":"x","ohms":330}],"leds":[{"id":"L","a":"x","b":"g"}]}];
+const r=cases.map(solveNetwork);assert.equal(r[0].voltage('b'),5);assert.ok(Math.abs(r[1].voltage('x')-2.5)<.001);assert.equal(r[2].faults.length,1);assert.ok(Math.abs(r[3].currents[0].mA-3000/340)<.001);console.log('Network tests passed');
