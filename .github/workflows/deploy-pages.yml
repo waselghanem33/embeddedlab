@@ -1,0 +1,46 @@
+name: Deploy EmbeddedLab to GitHub Pages
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-24.04
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Enable or configure Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+      - name: Build local AVR8js module
+        run: |
+          npm install --no-save --ignore-scripts avr8js@0.21.1 esbuild@0.25.12
+          mkdir -p _site/vendor
+          npx --no-install esbuild node_modules/avr8js/dist/esm/index.js --bundle --format=esm --outfile=_site/vendor/avr8js.mjs
+          cp ./*.html ./*.js ./*.mjs _site/
+          touch _site/.nojekyll
+          test -s _site/vendor/avr8js.mjs
+          test -s _site/index.html
+          test -s _site/avr-validation.html
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
